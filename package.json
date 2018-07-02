@@ -6,10 +6,29 @@
   "scripts": {
     "build": "node build.js",
     "start-dev": "webpack-dev-server --config webpack.config-dev.js --host push-dev.meizu.com --port 80",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "author": "ecofe",
   "license": "ISC",
+  "jest": {
+    "transformIgnorePatterns": [
+      "node_modules",
+      "resources"
+    ],
+    "collectCoverage": true,
+    "testMatch": [
+      "**/__tests__/**/*.test.js?(x)"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "resources"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/dev",
+      "/src/server"
+    ]
+  },
   "dependencies": {
     "antd": "^3.2.3",
     "echarts": "^4.0.4",
@@ -48,6 +67,9 @@
     "redux-devtools-log-monitor": "^1.4.0",
     "style-loader": "^0.20.3",
     "url-loader": "^1.0.1",
+    "jest": "^23.1.0",
+    "babel-jest": "^23.2.0",
+    "react-test-renderer": "^16.4.1",
     "webpack": "^3.0.0",
     "webpack-dev-server": "^2.5.0"
   }

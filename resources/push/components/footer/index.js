@@ -1,25 +1,23 @@
-'use strict';
-import React from 'react';
-import ReactDOM from 'react-dom';
-
-
+/*
+ * @Author: ecofe 
+ * @Date: 2018-07-02 09:15:24 
+ * @Last Modified by:   ecofe 
+ * @Last Modified time: 2018-07-02 09:15:24 
+ */
+'use strict'
+import React from 'react'
+import ReactDOM from 'react-dom'
 
 class Footer extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			
-		};
-	}
-	render() {
-		const year=new Date().getFullYear();
-	
-		return (
-			<div className="footer">
-				©{year} Meizu Telecom Equipment Co., Ltd. All rights reserved. 经营许可证编号：粤B2-20130198
-	      </div>
-		);
-	}
-};
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
+  render() {
+    const year = new Date().getFullYear()
 
-module.exports = Footer;
+    return <div className="footer">©{year}</div>
+  }
+}
+
+module.exports = Footer
