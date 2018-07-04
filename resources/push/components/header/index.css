@@ -7,11 +7,11 @@
 	width: 1240px;
 	margin: 0 auto;
 }
-.header_con a {
-	color: #fff;
+.header_con .ant-menu-horizontal .ant-menu-item a {
+	color: rgba(0,0,0,0.65);
 	font-size: 14px;
 }
-.ant-menu-horizontal .ant-menu-item-selected a{
+.header_con .ant-menu-horizontal .ant-menu-item-selected a{
 	color: #fff;
 }
 
