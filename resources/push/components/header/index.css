@@ -11,6 +11,9 @@
 	color: #fff;
 	font-size: 14px;
 }
+.header_con a.active{
+	color: #fff;
+}
 .logo {
 	font-size: 44px;
 	color: #fff;

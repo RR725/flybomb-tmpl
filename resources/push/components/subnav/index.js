@@ -1,8 +1,8 @@
 /*
  * @Author: ecofe 
  * @Date: 2018-07-02 09:16:06 
- * @Last Modified by:   ecofe 
- * @Last Modified time: 2018-07-02 09:16:06 
+ * @Last Modified by: ecofe
+ * @Last Modified time: 2018-07-02 15:06:49
  */
 import React from 'react'
 import { Form, Select } from 'antd'
@@ -29,7 +29,7 @@ class Sider extends React.Component {
       document.getElementById('userAuth').innerHTML //在main.js里设置值
     let appId = utils.queryString('appId', window.location.href)
     let newAppId = appId
-    const firstApp = this.props.listApp[0]
+    const firstApp = null //this.props.listApp[0]
     if (!appId || appId === '0') {
       if (
         (hash.indexOf('/data') === 1 ||
@@ -156,12 +156,12 @@ class Sider extends React.Component {
     let appId = utils.queryString('appId', window.location.href)
     let currentAppId = utils.queryString('currentAppId', window.location.href)
     let newAppId = appId
-    const firstApp = this.props.listApp[0]
-    if (!appId || appId === '0') {
-      if (firstApp) {
-        newAppId = firstApp.appId
-      }
-    }
+    // const firstApp = this.props.listApp[0]
+    // if (!appId || appId === '0') {
+    //   if (firstApp) {
+    //     newAppId = firstApp.appId
+    //   }
+    // }
     let html
     const path = this.props.path
     let appName = this.state.appName || '全部应用'

@@ -5,7 +5,7 @@
   "main": "",
   "scripts": {
     "build": "node build.js",
-    "start-dev": "webpack-dev-server --config webpack.config-dev.js --host push-dev.meizu.com --port 80",
+    "start-dev": "webpack-dev-server --config webpack.config-dev.js --host push-dev.meizu.com --port 80 --env.test",
     "test": "jest"
   },
   "author": "ecofe",
@@ -31,8 +31,10 @@
   },
   "dependencies": {
     "antd": "^3.2.3",
+    "axios": "^0.18.0",
     "echarts": "^4.0.4",
     "echarts-for-react": "^2.0.8",
+    "immutable": "^3.8.2",
     "match-media": "^0.2.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",

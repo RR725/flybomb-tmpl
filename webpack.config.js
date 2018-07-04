@@ -64,6 +64,7 @@ let config = {
 		]
 	},
 	devServer: {
+		disableHostCheck: true, //Invalid Host header错误，需要这个配置
 		proxy: {
 			'/garcia/*': {
 				target: 'http://push.meizu.com/',
@@ -81,13 +82,6 @@ let config = {
 			chunks: ['vender', 'main', 'push'],
 			filename: 'resources/push/html/views/index.jsp', //打包后的文件
 			template: 'resources/push/html/index.jsp' //模板文件
-		}),
-		new HtmlWebpackPlugin({ //生成Html，自动把打包后的文件加到html中
-			title: 'push',
-			inject: 'body',
-			chunks: ['vender', 'main', 'push'],
-			filename: 'resources/push/html/views/user-group.jsp', //打包后的文件
-			template: 'resources/push/html/user-group.jsp' //模板文件
 		}),
 		new CommonsChunkPlugin({ //把公共的文件打包
 			names: ['push', 'vender']
