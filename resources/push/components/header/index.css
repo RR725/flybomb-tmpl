@@ -11,9 +11,10 @@
 	color: #fff;
 	font-size: 14px;
 }
-.header_con a.active{
+.ant-menu-horizontal .ant-menu-item-selected a{
 	color: #fff;
 }
+
 .logo {
 	font-size: 44px;
 	color: #fff;

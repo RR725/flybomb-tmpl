@@ -2,7 +2,7 @@
  * @Author: ecofe 
  * @Date: 2018-07-02 09:15:17 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-04 11:37:13
+ * @Last Modified time: 2018-07-04 15:23:18
  */
 'use strict'
 import React from 'react'
@@ -26,15 +26,17 @@ class Header extends React.Component {
 
   componentDidMount() {
     this.getData()
+    window.onhashchange = () => {
+      this.props.getCurrentNav({ currentNav: this.props.location.pathname })
+    }
   }
   async getData() {
     let listApp = await ajax.get(restapi.listUserApp)
     listApp = listApp.value
 
-    
     let loginInfo = await ajax.get(restapi.getLoginInfo)
     loginInfo = loginInfo.value
-  
+
     let permission = {}
     if (loginInfo.userTypes[0] > 1) {
       permission = await ajax.get(restapi.getPermission)
@@ -46,14 +48,14 @@ class Header extends React.Component {
       listApp: listApp,
       permission: permission.value
     }
+
     this.props.getAjaxDatas(json)
+    this.props.getCurrentNav({ currentNav: this.props.location.pathname })
   }
   shouldComponentUpdate(nextProps, nextStates) {
     if (
-      is(
-        nextProps.header.get('loginInfo', 'icon'),
-        this.props.header.get('loginInfo', 'icon')
-      )
+      is(nextProps.header.get('loginInfo'), this.props.header.get('loginInfo')) &&
+      is(nextProps.header.get('currentNav'), this.props.header.get('currentNav'))
     ) {
       return false
     }
@@ -63,15 +65,14 @@ class Header extends React.Component {
     let { header } = this.props
     let permission = header.get('permission')
     let loginInfo = header.get('loginInfo')
-
     const logoutUrl =
-      restapi.logout + '?gotoURL=' + encodeURIComponent(location.origin)//登出 
+      restapi.logout + '?gotoURL=' + encodeURIComponent(location.origin) //登出
     let pm = permission.permission
 
     const hash = window.location.hash
     const userTypes = (loginInfo && loginInfo.userTypes) || []
     let userAuth = userTypes[0]
-    
+
     if (hash.indexOf('/home') === 1 && userAuth < 2) {
       pm = null
     }
@@ -81,7 +82,7 @@ class Header extends React.Component {
     let headMenu = []
     headMenu.push(
       <Menu.Item key="/home">
-        <Link id="home" activeclassname="active" to={'/home'}>
+        <Link id="home" to={'/home'}>
           首页
         </Link>
       </Menu.Item>
@@ -101,7 +102,7 @@ class Header extends React.Component {
         if (name === '首页' || name === '账号管理') {
         } else {
           headMenu.push(
-            <Menu.Item key={data.pageUrl}>
+            <Menu.Item key={data.pageUrl.split('?')[0]}>
               <Link id={id} activeclassname="active" to={url}>
                 {name}
               </Link>
@@ -118,16 +119,7 @@ class Header extends React.Component {
         </Menu.Item>
       </Menu>
     )
-    console.log(this.props.location)
-    menuMain = (
-      <Menu
-        className="fl main_nav"
-        selectedKeys={[this.props.location.pathname]}
-        mode="horizontal"
-      >
-        {headMenu}
-      </Menu>
-    )
+
     return (
       <div className="header">
         <div className="header_con">
@@ -153,7 +145,13 @@ class Header extends React.Component {
               height="90"
             />
           </h1>
-          {menuMain}
+          <Menu
+            className="fl main_nav"
+            selectedKeys={[header.get('currentNav')]}
+            mode="horizontal"
+          >
+            {headMenu}
+          </Menu>
         </div>
       </div>
     )
