@@ -2,7 +2,7 @@
  * @Author: ecofe 
  * @Date: 2018-07-02 09:15:17 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-05 11:03:57
+ * @Last Modified time: 2018-07-05 17:37:52
  */
 'use strict'
 import React from 'react'
@@ -125,39 +125,26 @@ class Header extends React.Component {
     )
     return (
       <div className="header">
-        <div className="header_con">
-          <Row>
-            <Col span="5">
-              <h1 className="fl logo">管理系统</h1>
-            </Col>
-            <Col span="14">
-              <Menu
-                className="fl main_nav"
-                selectedKeys={[header.get('currentNav')]}
-                mode="horizontal"
-              >
-                {headMenu}
-              </Menu>
-            </Col>
-            <Col span="4">
-              <div className="fr fs14 account">
-                <Dropdown overlay={menu} trigger={['click']}>
-                  <a className="ant-dropdown-link" href="#">
-                    <img
-                      width="42"
-                      height="42"
-                      src={loginInfo && loginInfo.icon}
-                    />
-                    <span id="userName" className="pr10 user_name">
-                      {loginInfo && loginInfo.flyme}
-                    </span>
-                    <Icon type="down" />
-                  </a>
-                </Dropdown>
-              </div>
-            </Col>
-          </Row>
+        <div className="fr account">
+          <Dropdown overlay={menu} trigger={['click']}>
+            <a className="ant-dropdown-link" href="#">
+              <img width="42" height="42" src={loginInfo && loginInfo.icon} />
+              <span className="pr10 user_name">
+                {loginInfo && loginInfo.flyme}
+              </span>
+              <Icon type="down" />
+            </a>
+          </Dropdown>
         </div>
+        <h1 className="fl logo">管理系统</h1>
+        <Menu
+          theme="dark"
+          selectedKeys={[header.get('currentNav')]}
+          mode="horizontal"
+          style={{ lineHeight: '65px' }}
+        >
+          {headMenu}
+        </Menu>
       </div>
     )
   }

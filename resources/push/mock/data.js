@@ -211,8 +211,8 @@ module.exports = [
           {
             grade: 1,
             id: 21,
-            name: '模块1',
-            pageUrl: '/module1',
+            name: '首页',
+            pageUrl: '/home',
             parentId: 0,
             sort: 1
           },

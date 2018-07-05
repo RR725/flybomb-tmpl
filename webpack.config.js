@@ -19,7 +19,11 @@ let config = env => {
     )
   }
   plugins = plugins.concat([
-    new ExtractTextPlugin('resources/push/dist/common.[chunkhash:8].css'), //合并css文件
+    new ExtractTextPlugin(
+      'resources/push/dist/common' +
+        (env.build ? '.[chunkhash:8]' : '') +
+        '.css'
+    ), //合并css文件
     new HtmlWebpackPlugin({
       //生成Html，自动把打包后的文件加到html中
       title: 'push',
@@ -38,14 +42,17 @@ let config = env => {
       main: './resources/push/lib/main.js',
       push: [
         './resources/push/lib/url-model.js',
-        './resources/push/lib/utils.js',
+        './resources/push/lib/utils.js'
       ],
       vender: ['match-media', 'react', 'react-dom'] //这几个抽离出来打包成vender.js
     },
     output: {
       publicPath: 'http://push-res.mzres.com/',
       chunkFilename: 'resources/push/dist/chunk.[chunkhash:8].js',
-      filename: 'resources/push/dist/[name].[chunkhash:8].js'
+      filename:
+        'resources/push/dist/[name]' +
+        (env.build ? '.[chunkhash:8]' : '') +
+        '.js'
     },
     // debug: true,
     // devtool: 'source-map',

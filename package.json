@@ -38,6 +38,7 @@
     "filedel": "^4.0.0",
     "immutable": "^3.8.2",
     "match-media": "^0.2.0",
+    "normalize-css": "^2.3.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-hot-loader": "^1.3.1",

@@ -2,7 +2,7 @@
  * @Author: ecofe 
  * @Date: 2018-06-29 15:55:10 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-04 16:54:36
+ * @Last Modified time: 2018-07-05 15:51:30
  */
 'use strict'
 import React from 'react'
@@ -14,6 +14,7 @@ import utils from '../../lib/utils'
 import Table from './table'
 import ajax from '../../components/ajax'
 
+import { Link } from 'react-router-dom'
 let _currentApp = {}
 
 class HomeToolbar extends React.Component {
@@ -76,23 +77,6 @@ class HomeToolbar extends React.Component {
     this.tableData(searchParam)
   }
 
-  addApp(url) {
-    // _currentApp.appId = this.state.appId
-    // let hash = window.location.hash
-    // const obj = {
-    //   type: 'back'
-    // }
-
-    // _currentApp.current =
-    //   _currentApp.current > 1
-    //     ? _currentApp.current
-    //     : this.props.home.get('current')
-
-    // hash = utils.makeUrl(hash.split('?')[0], obj)
-    // window.location.hash = hash
-    window.location.hash = url
-  }
-
   render() {
     const loginInfo = this.props.header.get('loginInfo')
     const { userTypes } = loginInfo
@@ -100,37 +84,20 @@ class HomeToolbar extends React.Component {
     return (
       <div>
         <Form horizontal="true">
-          <div className="home_toolbar">
-            <Row>
-              <Col span="4">
-                <div className="title">
-                  <span className="border" />应用列表
-                </div>
-              </Col>
-              <Col span="10">&nbsp;</Col>
-              <Col span="10">
-                <div style={{ textAlign: 'right' }}>
-                  <Col span="3">&nbsp;</Col>
-                  <Col span="21">
-                    {userAuth > 0 ? (
-                      <Button
-                        onClick={this.addApp.bind(this, '/home/add-app')}
-                        type="primary"
-                        size="large"
-                      >
-                        <Icon
-                          style={{
-                            fontSize: 12,
-                            fontWeight: 'bold'
-                          }}
-                          type="plus"
-                        />新建应用
-                      </Button>
-                    ) : null}
-                  </Col>
-                </div>
-              </Col>
-            </Row>
+          <div className="mg10 ta_r">
+            {userAuth > 0 ? (
+              <Link to={'/home/add-app'}>
+                <Button type="primary" size="large">
+                  <Icon
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 'bold'
+                    }}
+                    type="plus"
+                  />新建应用
+                </Button>{' '}
+              </Link>
+            ) : null}
           </div>
         </Form>
 

@@ -1,0 +1,55 @@
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.ta_l {
+  text-align: left;
+}
+.ta_r {
+  text-align: right;
+}
+a:focus {
+  outline: none;
+  -moz-outline: none;
+}
+@media (min-height: 500px) {
+  .containner{min-height: 500px;}
+}
+@media (min-height: 700px) {
+  .containner{min-height: 700px;}
+}
+@media (min-height: 900px) {
+  .containner{min-height: 900px;}
+}
+
+.pos_r {
+  position: relative;
+}
+.pos_a {
+  position: absolute;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+@px: 1px;
+@init:50;
+.setMargin(@n,@d,@s) when (@n > -15) {
+  .mg@{s}@{n} {
+    margin@{d}: @n* @px;
+  }
+  .setMargin((@n - 5), @d, @s);
+}
+.setMargin(@init, ~'', ~''); //传空字符串
+.setMargin(@init, -left, l);
+.setMargin(@init, -right, r);
+.setMargin(@init, -top, t);
+.setMargin(@init, -bottom, b);
