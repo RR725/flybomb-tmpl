@@ -2,7 +2,7 @@
  * @Author: ecofe 
  * @Date: 2018-07-02 09:15:17 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-05 17:37:52
+ * @Last Modified time: 2018-07-05 17:51:29
  */
 'use strict'
 import React from 'react'
@@ -72,27 +72,11 @@ class Header extends React.Component {
     const logoutUrl =
       restapi.logout + '?gotoURL=' + encodeURIComponent(location.origin) //登出
     let pm = permission.permission
-
-    const hash = window.location.hash
-    const userTypes = (loginInfo && loginInfo.userTypes) || []
-    let userAuth = userTypes[0]
-
-    if (hash.indexOf('/home') === 1 && userAuth < 2) {
-      pm = null
-    }
     let appId = utils.queryString('appId', window.location.href)
 
-    let menuMain = null
     let headMenu = []
-    headMenu.push(
-      <Menu.Item key="/home">
-        <Link id="home" to={'/home'}>
-          首页
-        </Link>
-      </Menu.Item>
-    )
+
     if (pm) {
-      let id = ''
       pm.map(function(data, key) {
         let url = ''
         let childModuleList = data.childModuleList
@@ -101,18 +85,14 @@ class Header extends React.Component {
         url = utils.makeUrl(data.pageUrl, {
           appId: appId
         })
-        id = 'nav' + data.id
 
-        if (name === '首页' || name === '账号管理') {
-        } else {
-          headMenu.push(
-            <Menu.Item key={data.pageUrl.split('?')[0]}>
-              <Link id={id} activeclassname="active" to={url}>
-                {name}
-              </Link>
-            </Menu.Item>
-          )
-        }
+        headMenu.push(
+          <Menu.Item key={data.pageUrl.split('?')[0]}>
+            <Link activeclassname="active" to={url}>
+              {name}
+            </Link>
+          </Menu.Item>
+        )
       })
     }
 

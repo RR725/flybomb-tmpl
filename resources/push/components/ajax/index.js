@@ -2,7 +2,7 @@
  * @Author: ecofe 
  * @Date: 2018-07-02 09:15:55 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-05 09:10:20
+ * @Last Modified time: 2018-07-05 17:59:20
  */
 'use strict'
 import React from 'react'
@@ -14,7 +14,6 @@ import mockData from '../../mock/mock'
 if (utils.mock) {
   const mock = new MockAdapter(axios)
   mockData(mock)
- 
 }
 // refetch.setDefaultOptions({
 //   dataType: 'json'
@@ -43,32 +42,8 @@ const ajax = {
     console.log(url)
     return axios
       .get(url, options)
-      .then(function(result) {
-        result = result.data
-        // console.log(utils)
-        // if (utils.mock) {
-        //   let data = mockData(url)
-        //   for (let i in data) {
-        //     if (url.indexOf(i) > -1) {
-        //       result = data[i]
-        //     }
-        //   }
-        // }
-
-        if (result.code === '301') {
-          top.window.location.href = result.value
-          return result
-        }
-        if (result.code === '200') {
-          return result
-        } else {
-          message.error(result.message, 2000)
-          setTimeout(function() {
-            message.destroy()
-          }, 2000)
-
-          return result
-        }
+      .then((result)=> {
+        return this.commonCallback(result)
       })
 
       .catch(function(error) {
@@ -76,38 +51,32 @@ const ajax = {
       })
   },
 
-  commonCallback(result, callback, errorCallback) {
+  commonCallback(result) {
     result = result.data
     if (result.code === '301') {
       top.window.location.href = result.value
-      return
+      return result
     }
-    if (
-      result.code === '200' ||
-      typeof result === 'string' ||
-      result.code === '110051'
-    ) {
-      //110051是上传文件失败的错误码。需要放行到业务代码里去处理一些逻辑，比如失败后删掉上传时显示在页面里的文件名
-      callback && callback(result)
+    if (result.code === '200') {
+      return result
     } else {
       message.error(result.message, 2000)
       setTimeout(function() {
         message.destroy()
       }, 2000)
-      errorCallback && errorCallback(result)
-      return
+      return result
     }
   },
-  post: function(url, data, callback, errorCallback) {
+  post: function(url, options) {
     let self = this
 
     axios
-      .post(url, data)
-      .then(function(result, xhr) {
-        self.commonCallback(result, callback, errorCallback)
+      .post(url, options)
+      .then(function(result) {
+        return this.commonCallback(result)
       })
-      .catch(function(error, response, xhr) {
-        consle.log('接口请求失败')
+      .catch(function(error) {
+        consle.log(error)
       })
   }
 }

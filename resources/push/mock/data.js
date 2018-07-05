@@ -211,7 +211,7 @@ module.exports = [
           {
             grade: 1,
             id: 21,
-            name: '首页',
+            name: '模块1',
             pageUrl: '/home',
             parentId: 0,
             sort: 1
@@ -219,7 +219,7 @@ module.exports = [
           {
             grade: 1,
             id: 22,
-            name: '模块1',
+            name: '模块2',
             pageUrl: '/module2',
             parentId: 0,
             sort: 2
