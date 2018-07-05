@@ -2,7 +2,7 @@
  * @Author: ecofe 
  * @Date: 2018-06-29 15:55:03 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-04 10:53:06
+ * @Last Modified time: 2018-07-05 11:01:25
  */
 'use strict'
 import React from 'react'
@@ -11,7 +11,6 @@ import { Table } from 'antd'
 import restapi from '../../lib/url-model'
 import utils from '../../lib/utils'
 import ajax from '../../components/ajax'
-// import defaultPermission from "../default-permission";
 class HomeTable extends React.Component {
   constructor(props) {
     super(props)

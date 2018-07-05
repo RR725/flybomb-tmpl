@@ -2,7 +2,7 @@
  * @Author: ecofe 
  * @Date: 2018-06-29 15:55:10 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-04 11:11:03
+ * @Last Modified time: 2018-07-04 16:54:36
  */
 'use strict'
 import React from 'react'
@@ -35,6 +35,7 @@ class HomeToolbar extends React.Component {
     url = utils.makeUrl(url, searchParam)
     let result = await ajax.get(url)
     let data = result.value.result
+    console.log(result)
     data.map(function(json, key) {
       data[key]['key'] = key
     })

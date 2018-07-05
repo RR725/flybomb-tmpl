@@ -19,7 +19,7 @@ let config = env => {
     )
   }
   plugins = plugins.concat([
-    new ExtractTextPlugin('resources/push/dist/common.css?ver=<%= jsVersion%>'), //合并css文件
+    new ExtractTextPlugin('resources/push/dist/common.[chunkhash:8].css'), //合并css文件
     new HtmlWebpackPlugin({
       //生成Html，自动把打包后的文件加到html中
       title: 'push',
@@ -39,15 +39,13 @@ let config = env => {
       push: [
         './resources/push/lib/url-model.js',
         './resources/push/lib/utils.js',
-        './resources/push/js/default-permission.js',
-        './resources/push/js/producttype-app.js'
       ],
       vender: ['match-media', 'react', 'react-dom'] //这几个抽离出来打包成vender.js
     },
     output: {
       publicPath: 'http://push-res.mzres.com/',
-      chunkFilename: 'resources/push/dist/[chunkhash:8].chunk.js',
-      filename: 'resources/push/dist/[name].js?ver=<%= jsVersion%>'
+      chunkFilename: 'resources/push/dist/chunk.[chunkhash:8].js',
+      filename: 'resources/push/dist/[name].[chunkhash:8].js'
     },
     // debug: true,
     // devtool: 'source-map',
@@ -61,7 +59,7 @@ let config = env => {
             {
               loader: 'babel-loader',
               options: {
-                presets: ['react', 'es2015', 'env'],//env用在async await
+                presets: ['react', 'es2015', 'env'], //env用在async await
 
                 plugins: [
                   'transform-decorators-legacy',
@@ -74,15 +72,19 @@ let config = env => {
             }
           ]
         },
+
         {
           test: /\.less$/,
-          loader: 'style!css!less'
-        }, // use ! to chain loaders
+          use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: ['css-loader', 'less-loader']
+          })
+        },
         {
           test: /\.css$/,
           use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
-            use: ['css-loader']
+            use: 'css-loader'
           })
         },
         {
@@ -95,13 +97,13 @@ let config = env => {
       ]
     },
     devServer: {
-      disableHostCheck: true, //Invalid Host header错误，需要这个配置
-      proxy: {
-        '/garcia/*': {
-          target: 'http://push.meizu.com/',
-          changeOrigin: true
-        }
-      }
+      disableHostCheck: true //Invalid Host header错误，需要这个配置
+      //   proxy: {
+      //     '/garcia/*': {
+      //       target: 'http://push.meizu.com/',
+      //       changeOrigin: true
+      //     }
+      //   }
     },
     plugins: plugins
   }

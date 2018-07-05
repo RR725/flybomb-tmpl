@@ -2,23 +2,21 @@
  * @Author: ecofe 
  * @Date: 2018-07-02 09:15:17 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-04 15:23:18
+ * @Last Modified time: 2018-07-05 11:03:57
  */
 'use strict'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Menu, Icon, Dropdown, Badge } from 'antd'
+import { Menu, Icon, Row, Col, Dropdown, Badge } from 'antd'
 import { Link } from 'react-router-dom'
 import restapi from '../../lib/url-model'
 import utils from '../../lib/utils'
 import ajax from '../ajax'
-import ProductTypeApp from '../../js/producttype-app' //产品类型和应用的下拉列表
-import defaultPermission from '../../js/default-permission'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { is } from 'immutable'
 import actions from './actions'
-import './index.css'
+import './index.less'
 class Header extends React.Component {
   constructor(props) {
     super(props)
@@ -54,8 +52,14 @@ class Header extends React.Component {
   }
   shouldComponentUpdate(nextProps, nextStates) {
     if (
-      is(nextProps.header.get('loginInfo'), this.props.header.get('loginInfo')) &&
-      is(nextProps.header.get('currentNav'), this.props.header.get('currentNav'))
+      is(
+        nextProps.header.get('loginInfo'),
+        this.props.header.get('loginInfo')
+      ) &&
+      is(
+        nextProps.header.get('currentNav'),
+        this.props.header.get('currentNav')
+      )
     ) {
       return false
     }
@@ -119,39 +123,40 @@ class Header extends React.Component {
         </Menu.Item>
       </Menu>
     )
-
     return (
       <div className="header">
         <div className="header_con">
-          <div className="fr fs14 account">
-            <Dropdown overlay={menu} trigger={['click']}>
-              <a className="ant-dropdown-link" href="#">
-                <img width="42" height="42" src={loginInfo && loginInfo.icon} />
-                <span
-                  id="userName"
-                  data-id={loginInfo && loginInfo.userId}
-                  className="pr10"
-                >
-                  {loginInfo && loginInfo.flyme}
-                </span>
-                <Icon type="down" />
-              </a>
-            </Dropdown>
-          </div>
-          <h1 className="fl fs16">
-            <img
-              src={utils.cdn + '/resources/push/images/logo.jpg'}
-              width="225"
-              height="90"
-            />
-          </h1>
-          <Menu
-            className="fl main_nav"
-            selectedKeys={[header.get('currentNav')]}
-            mode="horizontal"
-          >
-            {headMenu}
-          </Menu>
+          <Row>
+            <Col span="5">
+              <h1 className="fl logo">管理系统</h1>
+            </Col>
+            <Col span="14">
+              <Menu
+                className="fl main_nav"
+                selectedKeys={[header.get('currentNav')]}
+                mode="horizontal"
+              >
+                {headMenu}
+              </Menu>
+            </Col>
+            <Col span="4">
+              <div className="fr fs14 account">
+                <Dropdown overlay={menu} trigger={['click']}>
+                  <a className="ant-dropdown-link" href="#">
+                    <img
+                      width="42"
+                      height="42"
+                      src={loginInfo && loginInfo.icon}
+                    />
+                    <span id="userName" className="pr10 user_name">
+                      {loginInfo && loginInfo.flyme}
+                    </span>
+                    <Icon type="down" />
+                  </a>
+                </Dropdown>
+              </div>
+            </Col>
+          </Row>
         </div>
       </div>
     )

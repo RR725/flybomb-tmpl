@@ -2,7 +2,7 @@
  * @Author: ecofe 
  * @Date: 2018-07-02 09:16:06 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-02 15:06:49
+ * @Last Modified time: 2018-07-05 11:01:30
  */
 import React from 'react'
 import { Form, Select } from 'antd'
@@ -12,7 +12,6 @@ const Option = Select.Option
 import utils from '../../lib/utils'
 import restapi from '../../lib/url-model'
 import './index.css'
-import defaultPermission from '../../js/default-permission'
 class Sider extends React.Component {
   constructor(props) {
     super(props)
@@ -47,15 +46,6 @@ class Sider extends React.Component {
       }
     }
     let data = this.props.data
-
-    // if (userAuth > 1) {
-    // 	data = {
-    // 		value: {
-    // 			permission: defaultPermission.data(appId, newAppId)
-    // 		}
-    // 	}
-    // }
-    // config = defaultPermission.data(appId, newAppId)[type];
     if (!data) return <span />
     const dataSource = data && data.value && data.value.permission
     let source = []
