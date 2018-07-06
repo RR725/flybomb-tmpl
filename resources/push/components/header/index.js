@@ -2,7 +2,7 @@
  * @Author: ecofe 
  * @Date: 2018-07-02 09:15:17 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-05 17:51:29
+ * @Last Modified time: 2018-07-06 18:00:59
  */
 'use strict'
 import React from 'react'
@@ -25,30 +25,37 @@ class Header extends React.Component {
   componentDidMount() {
     this.getData()
     window.onhashchange = () => {
-      this.props.getCurrentNav({ currentNav: this.props.location.pathname })
+      console.log(99)
+      this.getData()
+      this.props.getSubNavCurrentId({
+        currentId: utils.queryString('currentId', this.props.location.search)
+      })
     }
   }
   async getData() {
-    let listApp = await ajax.get(restapi.listUserApp)
-    listApp = listApp.value
-
+    let pathname = this.props.location.pathname
+    console.log(pathname)
     let loginInfo = await ajax.get(restapi.getLoginInfo)
-    loginInfo = loginInfo.value
-
-    let permission = {}
-    if (loginInfo.userTypes[0] > 1) {
-      permission = await ajax.get(restapi.getPermission)
-    } else {
-      permission = await ajax.get(restapi.getPermission + '?appId=' + appId)
-    }
+    let mainNav = await ajax.get(restapi.getMainNav)
+    mainNav = mainNav.value
+    let currentNavId = ''
+    mainNav.map(data => {
+      if (data.pageUrl === pathname) {
+        currentNavId = data.id
+      }
+    })
+    let subNav = await ajax.get(
+      utils.makeUrl(restapi.getSubNav, { id: currentNavId })
+    )
     const json = {
-      loginInfo: loginInfo,
-      listApp: listApp,
-      permission: permission.value
+      subNav: subNav.value
     }
+    this.props.getSubNav(json)
+    this.props.getMainNav({ mainNav: mainNav })
+    this.props.getLoginInfo({ loginInfo: loginInfo.value })
+    this.props.getCurrentNav({ currentNav: pathname })
 
-    this.props.getAjaxDatas(json)
-    this.props.getCurrentNav({ currentNav: this.props.location.pathname })
+    this.props.getCurrentNavId({ currentNavId: currentNavId })
   }
   shouldComponentUpdate(nextProps, nextStates) {
     if (
@@ -61,40 +68,39 @@ class Header extends React.Component {
         this.props.header.get('currentNav')
       )
     ) {
+      this.props.getCurrentNav({ currentNav: this.props.location.pathname })
       return false
     }
     return true
   }
   render() {
     let { header } = this.props
-    let permission = header.get('permission')
+    let mainNav = header.get('mainNav')
+    let subNav = header.get('subNav')
+
     let loginInfo = header.get('loginInfo')
     const logoutUrl =
       restapi.logout + '?gotoURL=' + encodeURIComponent(location.origin) //登出
-    let pm = permission.permission
     let appId = utils.queryString('appId', window.location.href)
 
     let headMenu = []
+    mainNav.map(function(data, key) {
+      let url = data.pageUrl
+      let childModuleList = data.childModuleList
+      let name = data.name
+      let keyUrl = url.split('?')[0]
+      headMenu.push(
+        <Menu.Item key={keyUrl.split('/')[1]}>
+          <Link activeclassname="active" to={url}>
+            {name}
+          </Link>
+        </Menu.Item>
+      )
+    })
 
-    if (pm) {
-      pm.map(function(data, key) {
-        let url = ''
-        let childModuleList = data.childModuleList
-        let name = data.name
-
-        url = utils.makeUrl(data.pageUrl, {
-          appId: appId
-        })
-
-        headMenu.push(
-          <Menu.Item key={data.pageUrl.split('?')[0]}>
-            <Link activeclassname="active" to={url}>
-              {name}
-            </Link>
-          </Menu.Item>
-        )
-      })
-    }
+    subNav.map(()=>{
+      
+    })
 
     const menu = (
       <Menu>
@@ -110,7 +116,7 @@ class Header extends React.Component {
             <a className="ant-dropdown-link" href="#">
               <img width="42" height="42" src={loginInfo && loginInfo.icon} />
               <span className="pr10 user_name">
-                {loginInfo && loginInfo.flyme}
+                {loginInfo && loginInfo.username}
               </span>
               <Icon type="down" />
             </a>
@@ -119,9 +125,9 @@ class Header extends React.Component {
         <h1 className="fl logo">管理系统</h1>
         <Menu
           theme="dark"
-          selectedKeys={[header.get('currentNav')]}
+          selectedKeys={[header.get('currentNav').split('/')[1]]}
           mode="horizontal"
-          style={{ lineHeight: '65px' }}
+          style={{ lineHeight: '64px' }}
         >
           {headMenu}
         </Menu>

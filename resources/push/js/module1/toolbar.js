@@ -2,7 +2,7 @@
  * @Author: ecofe 
  * @Date: 2018-06-29 15:55:10 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-05 15:51:30
+ * @Last Modified time: 2018-07-06 15:29:17
  */
 'use strict'
 import React from 'react'
@@ -36,7 +36,6 @@ class HomeToolbar extends React.Component {
     url = utils.makeUrl(url, searchParam)
     let result = await ajax.get(url)
     let data = result.value.result
-    console.log(result)
     data.map(function(json, key) {
       data[key]['key'] = key
     })
@@ -83,23 +82,21 @@ class HomeToolbar extends React.Component {
     const userAuth = userTypes && userTypes[0]
     return (
       <div>
-        <Form horizontal="true">
-          <div className="mg10 ta_r">
-            {userAuth > 0 ? (
-              <Link to={'/home/add-app'}>
-                <Button type="primary" size="large">
-                  <Icon
-                    style={{
-                      fontSize: 12,
-                      fontWeight: 'bold'
-                    }}
-                    type="plus"
-                  />新建应用
-                </Button>{' '}
-              </Link>
-            ) : null}
-          </div>
-        </Form>
+        <div className="mg10 ta_r">
+          {userAuth > 0 ? (
+            <Link to={'/module1/add-app?currentId=32'}>
+              <Button type="primary" size="large">
+                <Icon
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 'bold'
+                  }}
+                  type="plus"
+                />新建应用
+              </Button>{' '}
+            </Link>
+          ) : null}
+        </div>
 
         <Table {...this.props} />
       </div>

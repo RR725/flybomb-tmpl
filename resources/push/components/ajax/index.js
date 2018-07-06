@@ -2,7 +2,7 @@
  * @Author: ecofe 
  * @Date: 2018-07-02 09:15:55 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-05 17:59:20
+ * @Last Modified time: 2018-07-06 17:37:25
  */
 'use strict'
 import React from 'react'
@@ -40,6 +40,7 @@ const ajax = {
   get(url, options) {
     let self = this
     console.log(url)
+    console.log(options)
     return axios
       .get(url, options)
       .then((result)=> {

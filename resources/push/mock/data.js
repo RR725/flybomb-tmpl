@@ -6,7 +6,7 @@ module.exports = [
       appId: 0,
       index: 1
     },
-    url: '/garcia/webjsp/appConfig/listAppData',
+    url: '/restapi/app/list',
     data: {
       code: '200',
       message: '',
@@ -138,7 +138,7 @@ module.exports = [
     }
   },
   {
-    url: '/garcia/system/index/getLoginInfo',
+    url: '/restapi/loginInfo',
     data: {
       code: '200',
       message: '',
@@ -148,100 +148,114 @@ module.exports = [
           'http://img.res.meizu.com/img/download/uc/11/35/35/86/70/113535867/w200h200?t=1509952107000',
         userTypes: [2],
         userId: 2221,
-        flyme: 'push2',
-        loginName: 'push1'
+        username: 'ecofe'
       }
     }
   },
   {
-    url: '/garcia/webjsp/appConfig/listUserApp',
+    url: '/restapi/nav/main',
     data: {
       code: '200',
       message: '',
       redirect: '',
       value: [
         {
-          appId: 648,
-          appType: 0,
-          name: '445',
-          packageName: 'com.mm',
-          pushAppId: 113638
-        },
-
-        {
-          appId: 236,
-          appType: 0,
-          name: 'remotecontroltv',
-          packageName: 'com.meizu.flyme.remotecontroltv',
-          pushAppId: 100051
+          id: 21,
+          name: '模块1',
+          pageUrl: '/module1'
         },
         {
-          appId: 254,
-          appType: 0,
-          name: 'scanner',
-          packageName: 'com.meizu.flyme.scanner',
-          pushAppId: 100059
+          id: 22,
+          name: '模块2',
+          pageUrl: '/module2'
         },
         {
-          appId: 226,
-          appType: 0,
-          name: 'usetips',
-          packageName: 'com.meizu.flyme.usetips',
-          pushAppId: 100034
+          id: 23,
+          name: '模块3',
+          pageUrl: '/module3'
         },
-
         {
-          appId: 470,
-          appType: 0,
-          name: '自动化云测平台',
-          packageName: 'com.meizu.testdev.mca',
-          pushAppId: 110440
+          id: 24,
+          name: '模块4',
+          pageUrl: '/module4'
         }
       ]
     }
   },
   {
-    url: '/garcia/system/permission/get',
+    params: { id: 21 },
+    url: '/restapi/nav/sub',
     data: {
       code: '200',
       message: '',
       redirect: '',
-      value: {
-        permission: [
-          {
-            grade: 1,
-            id: 21,
-            name: '模块1',
-            pageUrl: '/home',
-            parentId: 0,
-            sort: 1
-          },
-          {
-            grade: 1,
-            id: 22,
-            name: '模块2',
-            pageUrl: '/module2',
-            parentId: 0,
-            sort: 2
-          },
-          {
-            grade: 1,
-            id: 23,
-            name: '模块3',
-            pageUrl: '/module3',
-            parentId: 0,
-            sort: 3
-          },
-          {
-            grade: 1,
-            id: 24,
-            name: '模块4',
-            pageUrl: '/module4',
-            parentId: 0,
-            sort: 4
-          }
-        ]
-      }
+      value: [
+        {
+          id: 31,
+          name: '子模块1',
+          pageUrl: '/module1',
+          children: [
+            {
+              id: 41,
+              name: '孙模块1',
+              pageUrl: '/module1'
+            }
+          ]
+        },
+        {
+          id: 32,
+          name: '子模块2',
+          pageUrl: '/module1/add-app'
+        },
+        {
+          id: 33,
+          name: '子模块3',
+          pageUrl: '/module1/sub2'
+        },
+        {
+          id: 34,
+          name: '子模块4',
+          pageUrl: '/module1/sub3'
+        }
+      ]
+    }
+  },
+  {
+    params: { id: 22 },
+    url: '/restapi/nav/sub',
+    data: {
+      code: '200',
+      message: '',
+      redirect: '',
+      value: [
+        {
+          id: 131,
+          name: '子模块1111',
+          pageUrl: '/module2',
+          children: [
+            {
+              id: 141,
+              name: '孙模块1',
+              pageUrl: '/module2'
+            }
+          ]
+        },
+        {
+          id: 132,
+          name: '子模块2',
+          pageUrl: '/module2/add-app'
+        },
+        {
+          id: 133,
+          name: '子模块3',
+          pageUrl: '/module2/sub2'
+        },
+        {
+          id: 134,
+          name: '子模块4',
+          pageUrl: '/module2/sub3'
+        }
+      ]
     }
   }
 ]

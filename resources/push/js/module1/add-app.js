@@ -2,7 +2,7 @@
  * @Author: ecofe 
  * @Date: 2018-06-29 15:54:45 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-05 17:47:39
+ * @Last Modified time: 2018-07-06 11:32:14
  */
 'use strict'
 import React from 'react'
@@ -42,11 +42,7 @@ class AddApp extends React.Component {
     }
   }
 
-  componentWillUnmount() {
-    document.querySelector('#home').className = ''
-  }
   componentDidMount() {
-    document.querySelector('#home').className = 'active'
     ajax.get(restapi.getAppCategory, result => {
       this.setState({
         appCategory: result.value

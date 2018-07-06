@@ -2,7 +2,7 @@
  * @Author: ecofe 
  * @Date: 2018-06-29 15:54:55 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-05 15:50:40
+ * @Last Modified time: 2018-07-06 15:38:46
  */
 'use strict'
 import React from 'react'
@@ -22,17 +22,12 @@ class HomeIndex extends React.Component {
     super(props)
   }
 
-  // componentWillUnmount() {
-  //   document.querySelector('#home').className = ''
-  // }
-  // componentDidMount() {
-  //   document.querySelector('#home').className = 'active'
-  // }
+ 
 
   shouldComponentUpdate(nextProps, nextStates) {
     if (
       is(nextProps.home.get('data'), this.props.home.get('data')) &&
-      is(nextProps.home.get('loading'), this.props.home.get('loading'))&&
+      is(nextProps.home.get('loading'), this.props.home.get('loading')) &&
       is(nextProps.header.get('loginInfo'), this.props.header.get('loginInfo'))
     ) {
       return false
@@ -40,16 +35,12 @@ class HomeIndex extends React.Component {
     return true
   }
   render() {
-    return (
-      <div>
-        <Toolbar {...this.props} />
-      </div>
-    )
+    return <Toolbar {...this.props} />
   }
 }
 export default withRouter(
   connect(
     state => state,
-    Object.assign(actions, libActions)
+    Object.assign(actions,libActions)
   )(HomeIndex)
 )
