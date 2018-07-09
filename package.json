@@ -1,7 +1,7 @@
 {
   "name": "tmpl",
-  "version": "1.0.1",
-  "description": "",
+  "version": "2.0.0",
+  "description": "A template for react. Use some librarys and frames————react-router、redux、immutable、axios、antd、mockjs、jest、normalize.css ",
   "main": "",
   "scripts": {
     "build": "node build.js",

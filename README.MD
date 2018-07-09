@@ -3,6 +3,7 @@
 # 库
 - react
 - react-router
+- redux
 - axios
 - immutable
 - mockjs
