@@ -2,12 +2,13 @@
  * @Author: ecofe 
  * @Date: 2018-07-02 09:15:17 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-06 18:00:59
+ * @Last Modified time: 2018-07-09 17:00:17
  */
 'use strict'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Menu, Icon, Row, Col, Dropdown, Badge } from 'antd'
+
+import { Menu, Icon, Dropdown } from 'antd'
 import { Link } from 'react-router-dom'
 import restapi from '../../lib/url-model'
 import utils from '../../lib/utils'
@@ -25,7 +26,6 @@ class Header extends React.Component {
   componentDidMount() {
     this.getData()
     window.onhashchange = () => {
-      console.log(99)
       this.getData()
       this.props.getSubNavCurrentId({
         currentId: utils.queryString('currentId', this.props.location.search)
@@ -34,28 +34,38 @@ class Header extends React.Component {
   }
   async getData() {
     let pathname = this.props.location.pathname
-    console.log(pathname)
+    pathname = pathname === '/' ? '/module1' : pathname
     let loginInfo = await ajax.get(restapi.getLoginInfo)
     let mainNav = await ajax.get(restapi.getMainNav)
     mainNav = mainNav.value
     let currentNavId = ''
     mainNav.map(data => {
-      if (data.pageUrl === pathname) {
+      if (pathname.indexOf(data.pageUrl) > -1) {
         currentNavId = data.id
       }
     })
     let subNav = await ajax.get(
       utils.makeUrl(restapi.getSubNav, { id: currentNavId })
     )
-    const json = {
-      subNav: subNav.value
-    }
-    this.props.getSubNav(json)
+    subNav = subNav.value
+    this.props.getSubNav({
+      subNav: subNav
+    })
     this.props.getMainNav({ mainNav: mainNav })
     this.props.getLoginInfo({ loginInfo: loginInfo.value })
-    this.props.getCurrentNav({ currentNav: pathname })
-
+    this.props.getCurrentNav({ currentNav: this.props.location.pathname })
     this.props.getCurrentNavId({ currentNavId: currentNavId })
+    subNav.map((data, key) => {
+      if (pathname.split('/').length === 2 && key === 0) {
+        if (data.children && data.children.length) {
+          pathname = data.children[0].pageUrl
+        } else {
+          pathname = data.pageUrl
+        }
+
+        window.location.hash = pathname
+      }
+    })
   }
   shouldComponentUpdate(nextProps, nextStates) {
     if (
@@ -98,9 +108,7 @@ class Header extends React.Component {
       )
     })
 
-    subNav.map(()=>{
-      
-    })
+    subNav.map(() => {})
 
     const menu = (
       <Menu>

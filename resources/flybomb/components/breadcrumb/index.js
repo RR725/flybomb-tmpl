@@ -2,7 +2,7 @@
  * @Author: ecofe 
  * @Date: 2018-07-02 09:15:17 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-06 17:20:38
+ * @Last Modified time: 2018-07-09 17:00:34
  */
 'use strict'
 import React from 'react'
@@ -34,26 +34,20 @@ class BreadcrumbList extends React.Component {
         breadcrumb.push(data.name)
       }
     })
-    if (openId) {
-      subNav.map(data => {
-        if (data.id + '' === openId) {
+    subNav.map(data => {
+      if (data.children && data.children.length) {
+        data.children.map(opt => {
+          if (opt.pageUrl === pathname) {
+            breadcrumb.push(data.name)
+            breadcrumb.push(opt.name)
+          }
+        })
+      } else {
+        if (data.pageUrl === pathname) {
           breadcrumb.push(data.name)
         }
-        if (data.children && data.children.length) {
-          data.children.map(opt => {
-            if (opt.id + '' === currentId) {
-              breadcrumb.push(opt.name)
-            }
-          })
-        }
-      })
-    } else {
-      subNav.map(data => {
-        if (data.id + '' === currentId) {
-          breadcrumb.push(data.name)
-        }
-      })
-    }
+      }
+    })
 
     this.props.getBreadcrumb({ breadcrumb: breadcrumb })
   }

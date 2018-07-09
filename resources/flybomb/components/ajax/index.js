@@ -2,19 +2,19 @@
  * @Author: ecofe 
  * @Date: 2018-07-02 09:15:55 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-06 17:37:25
+ * @Last Modified time: 2018-07-09 17:15:26
  */
 'use strict'
 import React from 'react'
 import { message } from 'antd'
 import axios from 'axios'
-import MockAdapter from 'axios-mock-adapter'
 import utils from '../../lib/utils'
+
+//mock假数据
+import MockAdapter from 'axios-mock-adapter'
 import mockData from '../../mock/mock'
-if (utils.mock) {
-  const mock = new MockAdapter(axios)
-  mockData(mock)
-}
+const mock = new MockAdapter(axios)
+mockData(mock)
 // refetch.setDefaultOptions({
 //   dataType: 'json'
 // })
@@ -39,11 +39,9 @@ if (utils.mock) {
 const ajax = {
   get(url, options) {
     let self = this
-    console.log(url)
-    console.log(options)
     return axios
       .get(url, options)
-      .then((result)=> {
+      .then(result => {
         return this.commonCallback(result)
       })
 
@@ -77,7 +75,7 @@ const ajax = {
         return this.commonCallback(result)
       })
       .catch(function(error) {
-        consle.log(error)
+        console.log(error)
       })
   }
 }

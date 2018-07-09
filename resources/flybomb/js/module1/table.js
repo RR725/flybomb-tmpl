@@ -2,10 +2,12 @@
  * @Author: ecofe 
  * @Date: 2018-06-29 15:55:03 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-05 11:01:25
+ * @Last Modified time: 2018-07-09 16:59:30
  */
 'use strict'
 import React from 'react'
+
+
 
 import { Table } from 'antd'
 import restapi from '../../lib/url-model'
@@ -22,23 +24,7 @@ class HomeTable extends React.Component {
       {
         title: '应用名称',
         key: '0',
-        dataIndex: 'appName',
-        className: 'td_appname ',
-        render(text, record) {
-          return (
-            <div>
-              <img
-                src={
-                  record.appIconUrl ||
-                  utils.cdn + '/resources/push/images/default_icon.png'
-                }
-                width="24"
-                height="24"
-              />
-              {text}
-            </div>
-          )
-        }
+        dataIndex: 'appName'
       },
       {
         title: '应用包名',
@@ -48,25 +34,23 @@ class HomeTable extends React.Component {
       },
       {
         title: 'AppID',
-        className: 'ta_c',
         key: '2',
         dataIndex: 'pushAppId'
       },
       {
         title: '在线用户数',
-        className: 'ta_c',
+        align:'right',
         key: '3',
         dataIndex: 'onlineNum'
       },
       {
         title: '累计用户数',
-        className: 'ta_c',
+        align:'right',
         key: '4',
         dataIndex: 'allNum'
       },
       {
         title: '操作',
-        className: 'ta_c',
         key: '5',
         render(text, record) {
           return (

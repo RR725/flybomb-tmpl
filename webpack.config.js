@@ -20,37 +20,34 @@ let config = env => {
   }
   plugins = plugins.concat([
     new ExtractTextPlugin(
-      'resources/push/dist/common' +
+      'resources/flybomb/dist/common' +
         (env.build ? '.[chunkhash:8]' : '') +
         '.css'
     ), //合并css文件
     new HtmlWebpackPlugin({
       //生成Html，自动把打包后的文件加到html中
-      title: 'push',
+      title: 'flybomb',
       inject: 'body',
-      chunks: ['vender', 'main', 'push'],
+      chunks: ['vender', 'main'],
       filename: 'views/index.html', //打包后的文件
-      template: 'resources/push/html/index.html' //模板文件
+      template: 'resources/flybomb/html/index.html' //模板文件
     }),
     new CommonsChunkPlugin({
       //把公共的文件打包
-      names: ['push', 'vender']
+      names: ['vender']
     })
   ])
   return {
     entry: {
-      main: './resources/push/lib/main.js',
-      push: [
-        './resources/push/lib/url-model.js',
-        './resources/push/lib/utils.js'
-      ],
+      main: './resources/flybomb/lib/main.js',
+     
       vender: ['match-media', 'react', 'react-dom'] //这几个抽离出来打包成vender.js
     },
     output: {
-      publicPath: 'http://push-res.mzres.com/',
-      chunkFilename: 'resources/push/dist/chunk.[chunkhash:8].js',
+      publicPath: '/',
+      chunkFilename: 'resources/flybomb/dist/chunk.[chunkhash:8].js',
       filename:
-        'resources/push/dist/[name]' +
+        'resources/flybomb/dist/[name]' +
         (env.build ? '.[chunkhash:8]' : '') +
         '.js'
     },
@@ -69,6 +66,7 @@ let config = env => {
                 presets: ['react', 'es2015', 'env'], //env用在async await
 
                 plugins: [
+                  ['import', [{ libraryName: 'antd', style: 'css' }]], //antd按需加载
                   'transform-decorators-legacy',
                   'transform-decorators',
                   'syntax-dynamic-import',
@@ -91,23 +89,23 @@ let config = env => {
           test: /\.css$/,
           use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
-            use: 'css-loader'
+            use: [
+              {
+                loader: 'css-loader',
+                options: {
+                  minimize: true //css压缩
+                }
+              }
+            ]
           })
-        },
-        {
-          test: /\.(png|jpg|gif)$/,
-          loader: 'url-loader', // 用到的图片全部转base64塞到js
-          options: {
-            limit: 8192
-          }
         }
       ]
     },
     devServer: {
       disableHostCheck: true //Invalid Host header错误，需要这个配置
       //   proxy: {
-      //     '/garcia/*': {
-      //       target: 'http://push.meizu.com/',
+      //     '/restapi/*': {
+      //       target: 'http://ecofe.me/',
       //       changeOrigin: true
       //     }
       //   }

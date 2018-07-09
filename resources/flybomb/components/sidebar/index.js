@@ -2,7 +2,7 @@
  * @Author: ecofe 
  * @Date: 2018-07-02 09:15:17 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-06 17:51:11
+ * @Last Modified time: 2018-07-09 17:00:11
  */
 'use strict'
 import React from 'react'
@@ -21,24 +21,13 @@ class Sidebar extends React.Component {
   constructor(props) {
     super(props)
   }
-
-  componentDidMount() {
-    console.log(this.props.header.get('currentNavId'))
-    console.log(this.props.location)
-    // window.onhashchange = () => {
-    //   this.props.getSubNavCurrentId({
-    //     currentId: utils.queryString('currentId', this.props.location.search)
-    //   })
-    // }
-  }
-
   shouldComponentUpdate(nextProps, nextStates) {
     if (
       is(nextProps.header.get('subNav'), this.props.header.get('subNav')) &&
       is(
         nextProps.header.get('currentId'),
         this.props.header.get('currentId')
-      )&&
+      ) &&
       is(
         nextProps.header.get('currentNavId'),
         this.props.header.get('currentNavId')
@@ -48,24 +37,27 @@ class Sidebar extends React.Component {
     }
     return true
   }
+
   render() {
-    let { header } = this.props
+    let { header, location } = this.props
+    let pathname = location.pathname
     let subNav = header.get('subNav')
-    let currentId = utils.queryString('currentId', this.props.location.search)
-    let openId = utils.queryString('openId', this.props.location.search)
+    let currentId = utils.queryString('currentId', location.search)
+    let openId = utils.queryString('openId', location.search)
     let sideMenu = subNav.map(data => {
-      if (data.children && data.children.length > 0) {
+      if (data.children && data.children.length ) {
         return (
           <SubMenu key={data.id} title={data.name}>
             {data.children.map(opt => {
               let { id, name, pageUrl } = opt
-              let url = utils.makeUrl(pageUrl, {
-                openId: data.id,
-                currentId: id
-              })
+              if (opt.pageUrl === pathname) {
+                openId = data.id + ''
+                currentId = id + ''
+              }
+
               return (
                 <Menu.Item key={id}>
-                  <Link to={url}>{name}</Link>
+                  <Link to={pageUrl}>{name}</Link>
                 </Menu.Item>
               )
             })}
@@ -73,17 +65,18 @@ class Sidebar extends React.Component {
         )
       } else {
         let { id, name, pageUrl } = data
-        let url = utils.makeUrl(pageUrl, {
-          currentId: id
-        })
+
+        openId = 'null'
+        currentId = id + ''
         return (
-          <Menu.Item key={id }>
-            <Link to={url}>{name}</Link>
+          <Menu.Item key={id}>
+            <Link to={pageUrl}>{name}</Link>
           </Menu.Item>
         )
       }
     })
 
+    if (!openId) return null
     return (
       <Menu
         mode="inline"

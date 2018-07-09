@@ -2,10 +2,11 @@
  * @Author: ecofe 
  * @Date: 2018-06-29 15:55:10 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-06 15:29:17
+ * @Last Modified time: 2018-07-09 16:59:13
  */
 'use strict'
 import React from 'react'
+
 import { Form, Select, Button, Row, Icon, Col } from 'antd'
 const Option = Select.Option
 const FormItem = Form.Item
@@ -55,7 +56,6 @@ class HomeToolbar extends React.Component {
         onChange(current) {
           let searchParam = {
             appId: 0,
-            name: '',
             index: current
           }
 

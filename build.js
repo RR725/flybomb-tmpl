@@ -3,7 +3,7 @@ var child = require('child_process')
 var filedel = require('filedel')
 
 function build(type) {
-  filedel('resources/push/dist/*').then(() => {
+  filedel('resources/flybomb/dist/*').then(() => {
     console.log('删除旧的文件')
     console.log('构建中，请等待')
 
