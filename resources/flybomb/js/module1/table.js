@@ -2,7 +2,7 @@
  * @Author: ecofe 
  * @Date: 2018-06-29 15:55:03 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-09 16:59:30
+ * @Last Modified time: 2018-07-11 17:35:15
  */
 'use strict'
 import React from 'react'
@@ -70,30 +70,7 @@ class HomeTable extends React.Component {
     ]
   }
   openApp(record) {
-    const self = this
-    const appId = record.appId
-    ajax.get(restapi.getPermission + '?appId=' + appId, function(result) {
-      const permission = result.value.permission
-      self.setState({
-        data: result,
-        appId: appId
-      })
-
-      // const json = defaultPermission.data(appId);
-
-      let url = ''
-      for (let i = 0; i < permission.length; i++) {
-        let childModuleList = permission[i].childModuleList
-        if (childModuleList) {
-          url = childModuleList[0].pageUrl
-          url = utils.makeUrl(url, {
-            appId: appId
-          })
-        }
-        if (url !== '') break
-      }
-      window.location.href = window.location.pathname + '#' + url
-    })
+  
   }
   render() {
     const columns = this.columns()

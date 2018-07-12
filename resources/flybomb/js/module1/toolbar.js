@@ -2,7 +2,7 @@
  * @Author: ecofe 
  * @Date: 2018-06-29 15:55:10 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-09 16:59:13
+ * @Last Modified time: 2018-07-11 17:34:12
  */
 'use strict'
 import React from 'react'
@@ -37,12 +37,10 @@ class HomeToolbar extends React.Component {
     url = utils.makeUrl(url, searchParam)
     let result = await ajax.get(url)
     let data = result.value.result
-    data.map(function(json, key) {
+    data.forEach((json, key) =>{
       data[key]['key'] = key
     })
-    // self.props.updateAppId({
-    //   appId: 3
-    // })
+    
     self.props.loaded({
       current: searchParam.index,
       data: data,

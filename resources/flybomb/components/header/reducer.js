@@ -2,7 +2,7 @@
  * @Author: ecofe 
  * @Date: 2018-06-29 15:54:35 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-06 17:57:04
+ * @Last Modified time: 2018-07-11 15:22:04
  */
 'use strict'
 import { Map } from 'immutable'
@@ -16,9 +16,11 @@ const initialState = Map({
 })
 
 function update(state = initialState, action) {
+
   for (let i of state) {
     let value = i[0]
     if (action.type === value) {
+
       return state.update(value, () => action.data[value])
     }
   }

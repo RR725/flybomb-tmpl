@@ -2,7 +2,7 @@
  * @Author: ecofe 
  * @Date: 2018-07-02 09:15:17 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-09 17:00:34
+ * @Last Modified time: 2018-07-11 17:32:29
  */
 'use strict'
 import React from 'react'
@@ -29,12 +29,12 @@ class BreadcrumbList extends React.Component {
     const openId = utils.queryString('openId', search)
     const currentId = utils.queryString('currentId', search)
     let breadcrumb = []
-    mainNav.map(data => {
+    mainNav.forEach(data => {
       if (data.pageUrl.split('/')[1] === pathname.split('/')[1]) {
         breadcrumb.push(data.name)
       }
     })
-    subNav.map(data => {
+    subNav.forEach(data => {
       if (data.children && data.children.length) {
         data.children.map(opt => {
           if (opt.pageUrl === pathname) {

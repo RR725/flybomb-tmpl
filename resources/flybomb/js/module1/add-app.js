@@ -2,7 +2,7 @@
  * @Author: ecofe 
  * @Date: 2018-06-29 15:54:45 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-09 16:59:52
+ * @Last Modified time: 2018-07-11 17:38:50
  */
 'use strict'
 import React from 'react'
@@ -37,19 +37,9 @@ const formItemLayout = {
 class AddApp extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      loading: false,
-      appCategory: []
-    }
   }
 
-  componentDidMount() {
-    ajax.get(restapi.getAppCategory, result => {
-      this.setState({
-        appCategory: result.value
-      })
-    })
-  }
+  componentDidMount() {}
   cantNull(type) {
     const { getFieldProps } = this.props.form
     return getFieldProps(type, {
@@ -67,19 +57,6 @@ class AddApp extends React.Component {
             {
               max: 10,
               message: '应用名称不能超过10个字'
-            },
-            {
-              validator: function(rule, value, callback) {
-                if (
-                  value &&
-                  value.length >= 2 &&
-                  value.length <= 10 &&
-                  value.match(/^\s/)
-                ) {
-                  callback(new Error('行首不能输入空格'))
-                }
-                callback()
-              }
             }
           ],
           trigger: ['onBlur', 'onChange']
@@ -156,16 +133,10 @@ class AddApp extends React.Component {
       },
       showUploadList: false,
       beforeUpload(file) {
-        self.setState({
-          loading: true
-        })
         const fileType = file.type
         const isImg = fileType.indexOf('image') >= 0
         if (!isImg) {
           message.error('请上传图片格式的文件')
-          self.setState({
-            loading: false
-          })
         }
         return isImg
       },
@@ -182,9 +153,6 @@ class AddApp extends React.Component {
           } else {
             message.error(info.file.response.message)
           }
-          self.setState({
-            loading: false
-          })
         }
       }
     }
@@ -198,7 +166,7 @@ class AddApp extends React.Component {
         应用包名
       </span>
     )
-    const options = this.state.appCategory.map(function(data, key) {
+    const options = [].map(function(data, key) {
       return (
         <Option key={key} value={String(data.id)}>
           {data.categoryName}
@@ -223,7 +191,6 @@ class AddApp extends React.Component {
                 <Input
                   size="large"
                   style={{ width: 300 }}
-                  disabled={this.state.disabled}
                   {...this.validatePackageName('packageName')}
                 />
               </FormItem>
@@ -272,11 +239,7 @@ class AddApp extends React.Component {
                         className="btn_normal_show "
                         size="large"
                       >
-                        更换图片{this.state.loading ? (
-                          <Icon type="loading" />
-                        ) : (
-                          <span />
-                        )}
+                        更换图片
                       </Button>
                     ) : (
                       <Button
@@ -284,11 +247,7 @@ class AddApp extends React.Component {
                         className="btn_normal_show color_bg"
                         size="large"
                       >
-                        选择图片{this.state.loading ? (
-                          <Icon type="loading" />
-                        ) : (
-                          <span />
-                        )}
+                        选择图片
                       </Button>
                     )}
                   </Upload>
@@ -316,7 +275,6 @@ class AddApp extends React.Component {
                 label="&nbsp;"
               >
                 <Button
-                  disabled={this.state.hidden}
                   type="primary"
                   className="btn_normal_show color_bg"
                   onClick={this.handleSubmit}

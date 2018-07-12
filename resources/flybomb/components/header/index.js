@@ -2,7 +2,7 @@
  * @Author: ecofe 
  * @Date: 2018-07-02 09:15:17 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-09 17:00:17
+ * @Last Modified time: 2018-07-12 14:47:51
  */
 'use strict'
 import React from 'react'
@@ -38,6 +38,8 @@ class Header extends React.Component {
     let loginInfo = await ajax.get(restapi.getLoginInfo)
     let mainNav = await ajax.get(restapi.getMainNav)
     mainNav = mainNav.value
+
+
     let currentNavId = ''
     mainNav.map(data => {
       if (pathname.indexOf(data.pageUrl) > -1) {
@@ -55,7 +57,7 @@ class Header extends React.Component {
     this.props.getLoginInfo({ loginInfo: loginInfo.value })
     this.props.getCurrentNav({ currentNav: this.props.location.pathname })
     this.props.getCurrentNavId({ currentNavId: currentNavId })
-    subNav.map((data, key) => {
+    subNav.forEach((data, key) => {
       if (pathname.split('/').length === 2 && key === 0) {
         if (data.children && data.children.length) {
           pathname = data.children[0].pageUrl
@@ -93,13 +95,12 @@ class Header extends React.Component {
       restapi.logout + '?gotoURL=' + encodeURIComponent(location.origin) //登出
     let appId = utils.queryString('appId', window.location.href)
 
-    let headMenu = []
-    mainNav.map(function(data, key) {
+    let headMenu = mainNav.map(function(data, key) {
       let url = data.pageUrl
       let childModuleList = data.childModuleList
       let name = data.name
       let keyUrl = url.split('?')[0]
-      headMenu.push(
+      return (
         <Menu.Item key={keyUrl.split('/')[1]}>
           <Link activeclassname="active" to={url}>
             {name}
@@ -107,8 +108,6 @@ class Header extends React.Component {
         </Menu.Item>
       )
     })
-
-    subNav.map(() => {})
 
     const menu = (
       <Menu>
@@ -150,3 +149,4 @@ export default withRouter(
     actions
   )(Header)
 )
+
