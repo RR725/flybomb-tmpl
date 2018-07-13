@@ -10,5 +10,4 @@ Thumbs.db
 *.swo
 *.log
 node_modules/
-lib/
 npm-debug.log
