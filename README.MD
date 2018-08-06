@@ -25,7 +25,7 @@ npm i
 npm run start-dev
 ```
 http://127.0.0.1:8085/views/index.html
-
+[线上地址](https://ecofe.me/tmpl/index.html)
 # 构建
 ```
 npm run build
