@@ -2,7 +2,7 @@
  * @Author: ecofe 
  * @Date: 2018-06-29 15:54:45 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-11 17:38:50
+ * @Last Modified time: 2018-07-13 14:59:14
  */
 'use strict'
 import React from 'react'
@@ -39,7 +39,9 @@ class AddApp extends React.Component {
     super(props)
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+  
+  }
   cantNull(type) {
     const { getFieldProps } = this.props.form
     return getFieldProps(type, {

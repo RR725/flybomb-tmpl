@@ -20,17 +20,17 @@ let config = env => {
   }
   plugins = plugins.concat([
     new ExtractTextPlugin(
-      'resources/flybomb/dist/common' +
+      'resources/tmpl/dist/common' +
         (env.build ? '.[chunkhash:8]' : '') +
         '.css'
     ), //合并css文件
     new HtmlWebpackPlugin({
       //生成Html，自动把打包后的文件加到html中
-      title: 'flybomb',
+      title: 'tmpl',
       inject: 'body',
       chunks: ['vender', 'main'],
       filename: 'views/index.html', //打包后的文件
-      template: 'resources/flybomb/html/index.html' //模板文件
+      template: 'resources/tmpl/html/index.html' //模板文件
     }),
     new CommonsChunkPlugin({
       //把公共的文件打包
@@ -39,15 +39,15 @@ let config = env => {
   ])
   return {
     entry: {
-      main: './resources/flybomb/lib/main.js',
+      main: './resources/tmpl/lib/main.js',
      
       vender: ['match-media', 'react', 'react-dom'] //这几个抽离出来打包成vender.js
     },
     output: {
       publicPath: '/',
-      chunkFilename: 'resources/flybomb/dist/chunk.[chunkhash:8].js',
+      chunkFilename: 'resources/tmpl/dist/chunk.[chunkhash:8].js',
       filename:
-        'resources/flybomb/dist/[name]' +
+        'resources/tmpl/dist/[name]' +
         (env.build ? '.[chunkhash:8]' : '') +
         '.js'
     },

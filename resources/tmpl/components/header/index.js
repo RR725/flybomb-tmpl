@@ -2,7 +2,7 @@
  * @Author: ecofe 
  * @Date: 2018-07-02 09:15:17 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-12 17:40:47
+ * @Last Modified time: 2018-07-13 11:28:40
  */
 'use strict'
 import React from 'react'
@@ -22,7 +22,6 @@ class Header extends React.Component {
   constructor(props) {
     super(props)
   }
-
   componentDidMount() {
     this.getData()
     window.onhashchange = () => {

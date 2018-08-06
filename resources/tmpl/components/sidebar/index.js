@@ -2,7 +2,7 @@
  * @Author: ecofe 
  * @Date: 2018-07-02 09:15:17 
  * @Last Modified by: ecofe
- * @Last Modified time: 2018-07-09 17:00:11
+ * @Last Modified time: 2018-08-06 16:21:37
  */
 'use strict'
 import React from 'react'
@@ -17,6 +17,10 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { is } from 'immutable'
 import headerActions from '../header/actions'
+
+
+
+
 class Sidebar extends React.Component {
   constructor(props) {
     super(props)
@@ -37,7 +41,9 @@ class Sidebar extends React.Component {
     }
     return true
   }
-
+  componentDidMount(){
+  
+  }
   render() {
     let { header, location } = this.props
     let pathname = location.pathname
