@@ -1,4 +1,5 @@
 'use strict'
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 let ExtractTextPlugin = require('extract-text-webpack-plugin')
 let webpack = require('webpack')
@@ -9,6 +10,8 @@ let HtmlWebpackPlugin = require('html-webpack-plugin')
 let config = env => {
   let plugins = []
   if (env.build) {
+
+    plugins.push(new BundleAnalyzerPlugin())
     plugins.push(
       new webpack.optimize.UglifyJsPlugin({
         compress: {
