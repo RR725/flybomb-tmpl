@@ -1,6 +1,6 @@
 /*
- * @Author: ecofe 
- * @Date: 2018-07-02 09:15:17 
+ * @Author: ecofe
+ * @Date: 2018-07-02 09:15:17
  * @Last Modified by: ecofe
  * @Last Modified time: 2018-08-15 15:32:29
  */
@@ -38,16 +38,13 @@ class Header extends React.Component {
     let mainNav = await ajax.get(restapi.getMainNav)
     mainNav = mainNav.value
 
-
     let currentNavId = ''
     mainNav.map(data => {
       if (pathname.indexOf(data.pageUrl) > -1) {
         currentNavId = data.id
       }
     })
-    let subNav = await ajax.get(
-      utils.makeUrl(restapi.getSubNav, { id: currentNavId })
-    )
+    let subNav = await ajax.get(utils.makeUrl(restapi.getSubNav, { id: currentNavId }))
     subNav = subNav.value
     this.props.getSubNav({
       subNav: subNav
@@ -70,14 +67,8 @@ class Header extends React.Component {
   }
   shouldComponentUpdate(nextProps, nextStates) {
     if (
-      is(
-        nextProps.header.get('loginInfo'),
-        this.props.header.get('loginInfo')
-      ) &&
-      is(
-        nextProps.header.get('currentNav'),
-        this.props.header.get('currentNav')
-      )
+      is(nextProps.header.get('loginInfo'), this.props.header.get('loginInfo')) &&
+      is(nextProps.header.get('currentNav'), this.props.header.get('currentNav'))
     ) {
       this.props.getCurrentNav({ currentNav: this.props.location.pathname })
       return false
@@ -90,8 +81,7 @@ class Header extends React.Component {
     let subNav = header.get('subNav')
 
     let loginInfo = header.get('loginInfo')
-    const logoutUrl =
-      restapi.logout + '?gotoURL=' + encodeURIComponent(location.origin) //登出
+    const logoutUrl = restapi.logout + '?gotoURL=' + encodeURIComponent(location.origin) //登出
     let appId = utils.queryString('appId', window.location.href)
 
     let headMenu = mainNav.map(function(data, key) {
@@ -121,9 +111,7 @@ class Header extends React.Component {
           <Dropdown overlay={menu} trigger={['click']}>
             <a className="ant-dropdown-link" href="#">
               <img width="42" height="42" src={loginInfo && loginInfo.icon} />
-              <span className="pr10 user_name">
-                {loginInfo && loginInfo.username}
-              </span>
+              <span className="pr10 user_name">{loginInfo && loginInfo.username}</span>
               <Icon type="down" />
             </a>
           </Dropdown>
@@ -148,4 +136,3 @@ export default withRouter(
     actions
   )(Header)
 )
-

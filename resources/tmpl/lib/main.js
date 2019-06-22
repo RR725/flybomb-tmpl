@@ -1,6 +1,6 @@
 /*
- * @Author: ecofe 
- * @Date: 2018-06-29 15:55:44 
+ * @Author: ecofe
+ * @Date: 2018-06-29 15:55:44
  * @Last Modified by: ecofe
  * @Last Modified time: 2018-07-11 15:32:12
  */
@@ -34,7 +34,7 @@ import {
   HashRouter,
   Redirect
 } from 'react-router-dom'
-import { Layout,  Breadcrumb } from 'antd'
+import { Layout, Breadcrumb } from 'antd'
 const { Header, Content, Sider } = Layout
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import Head from '../components/header'
@@ -52,22 +52,11 @@ const reducer = combineReducers(
 )
 //模块全部按需加载
 
-
-
-
-const Home = () => (
-  <Bundle moduleId="route.module1" load={() => import('../js/module1')}>
-    {Comp => <Comp />}
-  </Bundle>
+const LoadComponents = path => (
+  //必须写成字符串模板的形式`../js/${path}`，写成纯变量虽然es6支持，但现在webpack的实现是不支持的
+  <Bundle load={() => import(`../js/${path}`)}>{Comp => <Comp />}</Bundle>
 )
-const AddApp = () => (
-  <Bundle
-    moduleId="route.module1.add.app"
-    load={() => import('../js/module1/add-app')}
-  >
-    {Comp => <Comp />}
-  </Bundle>
-)
+
 // const DevTools = createDevTools(
 // 	<DockMonitor toggleVisibilityKey="ctrl-h" changePositionKey="ctrl-q">
 // 		<LogMonitor theme="tomorrow" preserveScrollTop={false} />
@@ -119,10 +108,20 @@ render(
             <Route
               exact
               path="/"
-              component={() => <Redirect to="/module1" component={Home} />}
+              component={() => (
+                <Redirect to="/module1" component={() => LoadComponents('module1')} />
+              )}
             />
-            <Route exact path="/module1/menu100/sub1000" component={Home} />
-            <Route exact path="/module1/menu100/sub2000" component={AddApp} />
+            <Route
+              exact
+              path="/module1/menu100/sub1000"
+              component={() => LoadComponents('module1')}
+            />
+            <Route
+              exact
+              path="/module1/menu100/sub2000"
+              component={() => LoadComponents('module1/add-app')}
+            />
             <Route component={page404} />
           </Switch>
         </AppComponent>

@@ -1,5 +1,5 @@
 'use strict'
-var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 let ExtractTextPlugin = require('extract-text-webpack-plugin')
 let webpack = require('webpack')
@@ -10,7 +10,6 @@ let HtmlWebpackPlugin = require('html-webpack-plugin')
 let config = env => {
   let plugins = []
   if (env.build) {
-
     plugins.push(new BundleAnalyzerPlugin())
     plugins.push(
       new webpack.optimize.UglifyJsPlugin({
@@ -23,9 +22,7 @@ let config = env => {
   }
   plugins = plugins.concat([
     new ExtractTextPlugin(
-      'resources/tmpl/dist/common' +
-        (env.build ? '.[chunkhash:8]' : '') +
-        '.css'
+      'resources/tmpl/dist/common' + (env.build ? '.[chunkhash:8]' : '') + '.css'
     ), //合并css文件
     new HtmlWebpackPlugin({
       //生成Html，自动把打包后的文件加到html中
@@ -43,16 +40,12 @@ let config = env => {
   return {
     entry: {
       main: './resources/tmpl/lib/main.js',
-     
-      vender: ['match-media', 'react', 'react-dom'] //这几个抽离出来打包成vender.js
+      vender: ['immutable', 'react', 'react-dom', 'react-redux', 'react-router-dom'] //这几个抽离出来打包成vender.js
     },
     output: {
       publicPath: '/',
       chunkFilename: 'resources/tmpl/dist/chunk.[chunkhash:8].js',
-      filename:
-        'resources/tmpl/dist/[name]' +
-        (env.build ? '.[chunkhash:8]' : '') +
-        '.js'
+      filename: 'resources/tmpl/dist/[name]' + (env.build ? '.[chunkhash:8]' : '') + '.js'
     },
     // debug: true,
     // devtool: 'source-map',

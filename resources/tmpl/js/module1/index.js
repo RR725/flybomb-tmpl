@@ -1,6 +1,6 @@
 /*
- * @Author: ecofe 
- * @Date: 2018-06-29 15:54:55 
+ * @Author: ecofe
+ * @Date: 2018-06-29 15:54:55
  * @Last Modified by: ecofe
  * @Last Modified time: 2018-08-06 16:21:07
  */
@@ -22,8 +22,6 @@ class HomeIndex extends React.Component {
     super(props)
   }
 
- 
-
   shouldComponentUpdate(nextProps, nextStates) {
     if (
       is(nextProps.home.get('data'), this.props.home.get('data')) &&
@@ -41,6 +39,6 @@ class HomeIndex extends React.Component {
 export default withRouter(
   connect(
     state => state,
-    Object.assign(actions,libActions)
+    Object.assign(actions, libActions)
   )(HomeIndex)
 )

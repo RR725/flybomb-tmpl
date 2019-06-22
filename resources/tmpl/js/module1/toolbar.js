@@ -1,14 +1,13 @@
 /*
- * @Author: ecofe 
- * @Date: 2018-06-29 15:55:10 
+ * @Author: ecofe
+ * @Date: 2018-06-29 15:55:10
  * @Last Modified by: ecofe
  * @Last Modified time: 2018-07-11 17:34:12
  */
 'use strict'
 import React from 'react'
 
-import { Form, Select, Button, Row, Icon, Col } from 'antd'
-const Option = Select.Option
+import { Form, Button, Icon } from 'antd'
 const FormItem = Form.Item
 import restapi from '../../lib/url-model'
 import utils from '../../lib/utils'
@@ -37,10 +36,10 @@ class HomeToolbar extends React.Component {
     url = utils.makeUrl(url, searchParam)
     let result = await ajax.get(url)
     let data = result.value.result
-    data.forEach((json, key) =>{
+    data.forEach((json, key) => {
       data[key]['key'] = key
     })
-    
+
     self.props.loaded({
       current: searchParam.index,
       data: data,
@@ -56,7 +55,6 @@ class HomeToolbar extends React.Component {
             appId: 0,
             index: current
           }
-
           self.props.pagination(current)
           self.tableData(searchParam)
         }
@@ -90,7 +88,8 @@ class HomeToolbar extends React.Component {
                     fontWeight: 'bold'
                   }}
                   type="plus"
-                />新建应用
+                />
+                新建应用
               </Button>{' '}
             </Link>
           ) : null}
