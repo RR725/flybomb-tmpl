@@ -98,6 +98,11 @@ class App extends React.Component {
     )
   }
 }
+const data = [
+  {
+    path: 'module1'
+  }
+]
 const AppComponent = withRouter(App)
 render(
   <Provider store={store}>
@@ -121,6 +126,11 @@ render(
               exact
               path="/module1/menu100/sub2000"
               component={() => LoadComponents('module1/add-app')}
+            />
+            <Route
+              exact
+              path="/module1/menu100/sub3000"
+              component={() => LoadComponents('video/index')}
             />
             <Route component={page404} />
           </Switch>

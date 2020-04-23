@@ -37,6 +37,13 @@ class Header extends React.Component {
     let loginInfo = await ajax.get(restapi.getLoginInfo)
     let mainNav = await ajax.get(restapi.getMainNav)
     mainNav = mainNav.value
+    // let mainNav = [
+    //   {
+    //     name: '模块',
+    //     pageUrl: 'module',
+    //     id: 'home'
+    //   }
+    // ]
 
     let currentNavId = ''
     mainNav.map(data => {

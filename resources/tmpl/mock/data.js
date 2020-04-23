@@ -1,8 +1,8 @@
 /*
- * @Author: ecofe 
- * @Date: 2018-07-09 16:17:11 
- * @Last Modified by:   ecofe 
- * @Last Modified time: 2018-07-09 16:17:11 
+ * @Author: ecofe
+ * @Date: 2018-07-09 16:17:11
+ * @Last Modified by:   ecofe
+ * @Last Modified time: 2018-07-09 16:17:11
  */
 'use strict'
 import Mock from 'mockjs'
@@ -96,13 +96,7 @@ function MockSubNav() {
                 return {
                   id: id,
                   name: '孙模块' + id,
-                  pageUrl:
-                    '/module' +
-                    i +
-                    '/menu' +
-                    evt.context.currentContext.id * i +
-                    '/sub' +
-                    id
+                  pageUrl: '/module' + i + '/menu' + evt.context.currentContext.id * i + '/sub' + id
                 }
               })
             }
@@ -124,8 +118,7 @@ mockData.push({
     message: '',
     redirect: '',
     value: {
-      icon:
-        'http://img.res.meizu.com/img/download/uc/11/35/35/86/70/113535867/w200h200?t=1509952107000',
+      icon: '/resources/tmpl/images/defaul_icon.jpg?t=1509952107000',
       userTypes: [2],
       userId: 2221,
       username: 'ecofe'
