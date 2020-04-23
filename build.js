@@ -6,7 +6,7 @@ function build(type) {
   filedel('resources/tmpl/dist/*').then(() => {
     console.log('删除旧的文件')
     console.log('构建中，请等待')
-
+    //test2
     var proc = child.exec('webpack --env.build', err => {
       if (err) {
         console.log(err)
