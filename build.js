@@ -1,7 +1,7 @@
 'use strict'
 var child = require('child_process')
 var filedel = require('filedel')
-
+//test1
 function build(type) {
   filedel('resources/tmpl/dist/*').then(() => {
     console.log('删除旧的文件')
